@@ -17,7 +17,7 @@
 			<p><%= post.text %></p>
 			<div class="bottom">
 				<span class="bottom-left"><%= post.author %></span>
-				<span class="bottom-rigth"><%= post.date || 'No Date' %></span>
+				<span class="bottom-rigth"><%= post.updatedAt.toLocaleDateString() || 'No Date' %></span>
 			</div>
 		</div>	
 	</div>	

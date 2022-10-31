@@ -6,7 +6,7 @@
 	<div class="post-body">
 		<h1>POSTS</h1>
 
-		<%posts.forEach(({id,text,title,date,author})=>{%>
+		<%posts.forEach(({id,text,title,updatedAt,author})=>{%>
 			<div class="posts">
 				<div class="post">
 					<h3>
@@ -15,7 +15,7 @@
 					<p><%=text %></p>
 					<div class="bottom">
 						<span class="bottom-left"><%=author %></span>
-						<span class="bottom-rigth"><%=date %></span>
+						<span class="bottom-rigth"><%=updatedAt.toLocaleDateString() %></span>
 					</div>
 				</div>	
 			</div>	

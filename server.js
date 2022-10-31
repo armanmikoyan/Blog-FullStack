@@ -3,6 +3,7 @@ const app = express()
 const path = require('path')
 const mongoose = require('mongoose')
 const Post = require('./models/post')
+const Contact = require('./models/contacts')
 
 app.use(express.static('styles'))
 
@@ -42,30 +43,18 @@ app.get('/',(req,res)=>{
 
 app.get('/posts/:id',(req,res)=>{
 	const title = 'Post'
-	const post = {
-					id:1,
-					text:"loremLorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus excepturi dolores atque sit praesentium quam nisi dicta numquam libero! Unde rerum libero dicta similique sapiente nesciunt voluptate magni ducimus incidunt?",
-					title:'Post Title',
-					date: '05.08.2001',
-					author:'Arman'
-				}
-	
-	res.render(createPath('post'),{title,post})
+	Post.findById(req.params.id)
+	.then((post)=>res.render(createPath('post'),{post,title}))
+	.catch((err)=>console.log(err))
 })
 
 
 app.get('/posts',(req,res)=>{
 	const title = 'Posts'
-	const posts = [
-		{
-			id:1,
-			text:"loremLorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus excepturi dolores atque sit praesentium quam nisi dicta numquam libero! Unde rerum libero dicta similique sapiente nesciunt voluptate magni ducimus incidunt?",
-			title:'Post Title',
-			date: '05.08.2001',
-			author:'Arman'
-		}
-	]
-	res.render(createPath('posts'),{title,posts})
+	Post.find()
+	.sort({createdAt: -1})
+	.then((posts)=>res.render(createPath('posts'),{posts,title}))
+	.catch((err)=>console.log(err))
 })
 
 
@@ -77,7 +66,7 @@ app.get('/add-post', (req,res)=>{
 app.post('/add-post',(req,res)=>{
 	const {title,author,text} = req.body
 	const post = new Post({title,author,text}).save().then((result)=>{
-		res.send(result)
+		res.redirect('/posts')
 	}).catch((err)=>{
 		console.log(err);
 	})
@@ -87,12 +76,10 @@ app.post('/add-post',(req,res)=>{
 
 app.get('/contacts',(req,res)=>{
 	const title = 'Contacts'
-	const contacts = [
-		{name:'Gmail', link:'https://mail.google.com/mail/u/0/#inbox'},
-		{name:'Github', link:'https://github.com/armanmikoyan'},
-		{name:'Facebook', link:'https://www.facebook.com'}
-	]
-	res.render(createPath('contacts'),{contacts,title})
+	Contact.find()
+	.then((contacts)=>res.render(createPath('contacts'),{contacts,title}))
+	.catch((err)=>console.log(err))
+	
 	
 })
 
