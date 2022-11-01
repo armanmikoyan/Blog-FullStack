@@ -2,11 +2,12 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const mongoose = require('mongoose')
+const methodOverride = require('method-override')
 const Post = require('./models/post')
 const Contact = require('./models/contacts')
 
 app.use(express.static('styles'))
-
+app.use(methodOverride('_method'))
 
 app.set('view engine', 'ejs')
 
@@ -41,10 +42,33 @@ app.get('/',(req,res)=>{
 
 
 
+app.get('/edit/:id',(req,res)=>{
+	const title = 'Edit-post'
+	Post.findById(req.params.id)
+	.then((post)=>res.render(createPath('edit-post'),{post,title}))
+	.catch((err)=>console.log(err))
+})
+
+app.put('/edit/:id',(req,res)=>{
+	const {title,author,text} = req.body
+	const {id} = req.params
+	Post.findByIdAndUpdate(id,{title,author,text})
+	.then((result)=>res.redirect(`/posts/${id}`))
+	.catch((err)=>res.render(createPath('error'),{title}))
+})
+
+
 app.get('/posts/:id',(req,res)=>{
 	const title = 'Post'
 	Post.findById(req.params.id)
 	.then((post)=>res.render(createPath('post'),{post,title}))
+	.catch((err)=>console.log(err))
+})
+
+app.delete('/posts/:id',(req,res)=>{
+	const title = 'Post'
+	Post.findByIdAndDelete(req.params.id)
+	.then((result)=>res.sendStatus(200))
 	.catch((err)=>console.log(err))
 })
 
