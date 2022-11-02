@@ -271,7 +271,19 @@
 			outline: none;
 			cursor: pointer;
 		}
-
+		.contacts{
+			margin-top: 300px;
+			display: flex;
+			justify-content: center;
+			gap: 10px;
+		}
+	
+		.contacts a{
+				font-size: 2g0px;
+				display: flex;
+				flex-direction: column;
+	
+		}
 
 		.posts{
 			max-width: 80%;
