@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const path = require('path')
+require('dotenv').config()
 const mongoose = require('mongoose')
 const methodOverride = require('method-override')
 const Post = require('./models/post')
@@ -12,13 +13,15 @@ app.use(methodOverride('_method'))
 app.set('view engine', 'ejs')
 
 
+
+
 const createPath = (page) => {
 	return path.resolve(__dirname, 'ejs-pages', `${page}.ejs`)
 }
  
-const db = 'mongodb+srv://arman:Pass321@cluster0.a7eewrn.mongodb.net/?retryWrites=true&w=majority'
+
 mongoose
-.connect(db)
+.connect(process.env.MONGO_URL)
 .then(()=>{
 	console.log('conected to db');
 })
@@ -27,7 +30,7 @@ mongoose
 })
 
 
-app.listen(3000,(err)=>{
+app.listen(process.env.PORT,(err)=>{
 	err ? console.log(err): console.log('listening 3000 port');
 })
 
