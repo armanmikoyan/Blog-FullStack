@@ -207,3 +207,62 @@
 		cursor: pointer;
 	}
 	
+
+
+
+
+	@media only screen and (max-width: 718px) {
+		ul{
+		
+			font-size: 20px;
+		
+		}
+
+
+	form{
+		margin: 50px auto;
+		gap: 50px;
+		max-width: 1000px;
+		display: grid;
+		grid-template-areas:
+		'title '
+		' author'
+		'main-text'
+		' main-text';
+		max-width: 100%;
+		
+	}
+	  }
+
+
+	  @media only screen and (max-width: 718px) {
+		ul{
+		
+			display: none;
+		
+		}
+		form{
+			margin: 10px auto;
+			gap: 50px;
+		
+			display: grid;
+			grid-template-areas:
+			'title '
+			' author'
+			'main-text'
+			' main-text';
+			max-width: 100%;
+			
+		}
+		input{
+			padding: 1px 1px;
+			font-size: 20px;
+			background-color: #173f5c7c;
+			color: azure;
+			border: 0;
+			outline: none;
+			cursor: pointer;
+		}
+
+
+	  }
